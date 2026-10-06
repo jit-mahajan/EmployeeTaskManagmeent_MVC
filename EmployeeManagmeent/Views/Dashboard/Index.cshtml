@@ -1,0 +1,250 @@
+﻿@model EmployeeManagmeent.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container dashboard-container">
+
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">
+                <i class="bi bi-speedometer2 me-2"></i>
+                Dashboard
+            </h1>
+
+            <p class="page-subtitle">
+                Employee and task management overview
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <i class="bi bi-people-fill stat-icon"></i>
+
+                <div class="stat-label">
+                    Total Employees
+                </div>
+
+                <div class="stat-number">
+                    @Model.TotalEmployees
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <i class="bi bi-person-check-fill stat-icon"></i>
+
+                <div class="stat-label">
+                    Active Employees
+                </div>
+
+                <div class="stat-number">
+                    @Model.ActiveEmployees
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <i class="bi bi-list-check stat-icon"></i>
+
+                <div class="stat-label">
+                    Total Tasks
+                </div>
+
+                <div class="stat-number">
+                    @Model.TotalTasks
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <i class="bi bi-check-circle-fill stat-icon"></i>
+
+                <div class="stat-label">
+                    Completed Tasks
+                </div>
+
+                <div class="stat-number">
+                    @Model.CompletedTasks
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+
+        <div class="col-md-8">
+
+            <div class="modern-card h-100">
+
+                <div class="modern-card-header">
+
+                    <h5> <i class="bi bi-clock-history me-2"></i> Recent Tasks</h5>
+
+                </div>
+
+
+                @if (Model.RecentTasks != null && Model.RecentTasks.Any())
+                {
+                    <div class="p-3">
+
+                        @foreach (var task in Model.RecentTasks)
+                        {
+                            <div class="recent-task">
+
+                                <div class="recent-task-info">
+
+                                    <strong> @task.Title </strong>
+
+                                    <small> <i class="bi bi-person me-1"></i> @task.EmployeeName</small>
+
+                                </div>
+
+                                <div class="recent-task-details">
+
+                                    <span class="badge bg-primary"> @task.Status </span>
+
+                                    <small> <i class="bi bi-calendar3 me-1"></i> @task.DueDate.ToString("dd MMM yyyy") </small>
+
+                                </div>
+
+                            </div>
+                        }
+
+                    </div>
+                }
+                else
+                {
+                    <div class="p-4 text-center">
+
+                        <i class="bi bi-clipboard-check empty-icon"></i>
+
+                        <h5>No recent tasks</h5>
+
+                        <p class="text-muted">
+                            Create a task to get started.
+                        </p>
+
+                        <a asp-controller="Task" asp-action="Create"  class="btn btn-primary">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Create Task
+                        </a>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="modern-card h-100">
+
+                <div class="modern-card-header">
+
+                    <h5>
+                        <i class="bi bi-lightning-charge-fill me-2"></i>
+                        Quick Actions
+                    </h5>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <a asp-controller="Employee" asp-action="Create" class="quick-action">
+
+                        <i class="bi bi-person-plus-fill"></i>
+                        <span>
+
+                            <strong>Add Employee </strong>
+
+                            <small>Create employee</small>
+
+                        </span>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+
+                    <a asp-controller="Task" asp-action="Create" class="quick-action">
+
+                        <i class="bi bi-plus-square-fill"></i>
+
+                        <span>
+
+                            <strong>Create Task </strong>
+
+                            <small>Assign a task </small>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </a>
+
+                    <a asp-controller="Employee" asp-action="Index" class="quick-action">
+
+                        <i class="bi bi-people-fill"></i>
+
+                        <span>
+                            <strong> Employees</strong>
+
+                            <small> Manage employees </small>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </a>
+
+                    <a asp-controller="Task" asp-action="Index" class="quick-action">
+
+                        <i class="bi bi-list-check"></i>
+
+                        <span>
+
+                            <strong>Tasks</strong>
+                            <small>Manage tasks  </small>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

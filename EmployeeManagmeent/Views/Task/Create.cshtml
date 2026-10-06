@@ -1,0 +1,210 @@
+﻿@model EmployeeTaskViewModel
+
+@{
+    ViewData["Title"] = "Create Task";
+}
+
+<div class="container">
+
+    <div class="page-header mb-4">
+
+        <div>
+            <h1 class="page-title">
+                <i class="bi bi-plus-square me-2"></i>
+                Create Task
+            </h1>
+
+            <p class="page-subtitle">
+                Create and assign a task to an employee
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- Task Form -->
+
+        <div class="col-md-8">
+
+            <div class="modern-card">
+
+                <div class="modern-card-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clipboard-plus me-2"></i>
+                        Task Information
+                    </h5>
+                </div>
+
+                <div class="p-4">
+
+                    <form asp-action="Create" method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+
+
+                        <!-- Title -->
+
+                        <div class="mb-3">
+
+                            <label asp-for="Title"
+                                   class="form-label">
+                                Task Title
+                            </label>
+
+                            <input asp-for="Title"
+                                   class="form-control"
+                                   placeholder="Enter task title" />
+
+                            <span asp-validation-for="Title"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Description -->
+
+                        <div class="mb-3">
+
+                            <label asp-for="Description"
+                                   class="form-label">
+                                Description
+                            </label>
+
+                            <textarea asp-for="Description"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Enter task description">
+                            </textarea>
+
+                            <span asp-validation-for="Description"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Employee -->
+
+                        <div class="mb-3">
+
+                            <label asp-for="EmployeeId"
+                                   class="form-label">
+                                Employee
+                            </label>
+
+                            <select asp-for="EmployeeId"
+                                    asp-items="ViewBag.Employees"
+                                    class="form-select"
+                                    id="EmployeeId">
+
+                                <option value="">
+                                    -- Select Employee --
+                                </option>
+
+                            </select>
+
+                            <span asp-validation-for="EmployeeId"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Status -->
+
+                        <div class="mb-3">
+
+                            <label asp-for="Status"
+                                   class="form-label">
+                                Status
+                            </label>
+
+                            <select asp-for="Status"
+                                    asp-items="Html.GetEnumSelectList<EmployeeTaskStatus>()"
+                                    class="form-select">
+                            </select>
+
+                            <span asp-validation-for="Status"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Due Date -->
+
+                        <div class="mb-3">
+
+                            <label asp-for="DueDate"
+                                   class="form-label">
+                                Due Date
+                            </label>
+
+                            <input asp-for="DueDate"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="DueDate"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+
+                        <div class="mt-4">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="bi bi-check-lg me-1"></i>
+                                Save Task
+
+                            </button>
+
+                            <a asp-action="Index"
+                               class="btn btn-secondary">
+
+                                <i class="bi bi-x-lg me-1"></i>
+                                Cancel
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Employee Information -->
+
+        <div class="col-md-4">
+
+            <partial name="_EmployeeInfo" />
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/task.js"></script>
+}
